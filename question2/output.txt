@@ -1,0 +1,14 @@
+Query description string 1
+[DB description string 1] at offset 7
+
+Query description string 2
+[DB description string 1] at offset 47
+[DB description string 2] at offset 33
+
+Query description string 3
+[DB description string 1] at offset 94
+[DB description string 2] at offset 79
+[DB description string 2] at offset 87
+
+Query description string 4
+NOT FOUND
