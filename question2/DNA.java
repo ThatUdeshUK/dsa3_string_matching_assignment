@@ -53,7 +53,7 @@ public class DNA {
       for (Sequence query : querySeqList) {
         ArrayList<Match> matches = new ArrayList<>();
         for (Sequence dna : dnaSeqList) {
-          matches.addAll(getMatches(dna, query));
+          matches.addAll(getMatchesKarpRabin(dna, query));
         }
         System.out.println(query.name);
         writer.println(query.name);
@@ -77,13 +77,15 @@ public class DNA {
   }
 
   /**
-   * Get the matches from a given text and a pattern
+   * DEPRECATED
+   * Get the matches from a given text and a pattern using bruteforce algorithm
    * 
    * @param text
    * @param pattern
    * @return List of matches
    */
-  private static List<Match> getMatches(Sequence dna, Sequence query) {
+  @Deprecated
+   private static List<Match> getMatchesNaive(Sequence dna, Sequence query) {
     ArrayList<Match> matches = new ArrayList<>();
 
     for (int i = 0; i < dna.data.length() - query.data.length(); i++) {
@@ -97,6 +99,31 @@ public class DNA {
       if (matched)
         matches.add(new Match(query.name, dna.name, i));
     }
+    return matches;
+  }
+
+  /**
+   * Get the matches from a given text and a pattern using karp/rabin algorithm
+   * 
+   * @param text
+   * @param pattern
+   * @return List of matches
+   */
+  private static List<Match> getMatchesKarpRabin(Sequence dna, Sequence query) {
+    ArrayList<Match> matches = new ArrayList<>();
+
+    RollingHash queryHash = new RollingHash(query.data);
+    RollingHash dnaHash = new RollingHash(dna.data.substring(0, query.data.length()));
+
+    if (dnaHash.hashEqual(queryHash))
+      matches.add(new Match(query.name, dna.name, 0));
+
+    for (int i = query.data.length(); i < dna.data.length(); i++) {
+      dnaHash.roll(dna.data.charAt(i));
+      if (dnaHash.hashEqual(queryHash))
+        matches.add(new Match(query.name, dna.name, i - query.data.length() + 1));
+    }
+
     return matches;
   }
 
@@ -171,6 +198,47 @@ public class DNA {
       this.query = query;
       this.dna = dna;
       this.position = position;
+    }
+  }
+
+  /**
+   * RollingHash
+   */
+  public static class RollingHash {
+  
+    double value;
+    private ArrayList<Character> sequence;
+
+    RollingHash() {
+      this.value = 0;
+      this.sequence = new ArrayList<>(); 
+    }
+
+    RollingHash(String initial) {
+      this.value = 0;
+      this.sequence = new ArrayList<>();
+      for (int i = 0; i < initial.length(); i++) {
+        this.value *= 10;
+        this.value += initial.charAt(i);
+        sequence.add(initial.charAt(i));
+      }
+    }
+    
+    double append(char letter) {
+      this.value = this.value * 10 + letter;
+      sequence.add(letter);
+      return this.value;
+    }
+
+    double roll(char letter) {
+      this.value = (this.value - sequence.get(0) * Math.pow(10, sequence.size() - 1)) * 10 + letter;
+      sequence.remove(0);
+      sequence.add(letter);
+      return this.value;
+    }
+
+    public boolean hashEqual(RollingHash obj) {
+      return this.value == obj.value;
     }
   }
 }
