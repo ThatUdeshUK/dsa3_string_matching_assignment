@@ -16,7 +16,7 @@ java Wildcard <text_file> <pattern_file> <output_file>
 # <pattern_file> - REQUIRED Pattern that will be searched in the given text
 # <output_file> - OPTIONAL Output file to write the output
 
-# Eg - java Wildcard text.txt pattern.txt output.txt
+# TEST - java Wildcard text.txt pattern.txt output.txt
 ```
 
 ---
@@ -27,24 +27,26 @@ Matches given multiple DNA queries with multiple DNA database using Karp/Rabin s
 
 ### How to run - **Question 2**
 
-Move to ```question1``` directory, compile and run Wildcard.java with arguments
+Move to ```question2``` directory, compile and run Wildcard.java with arguments
 
 ```bash
 cd question2
 javac DNA.java
 java DNA <database_file> <query_file> <output_file>
-# <text_file> - REQUIRED Text which contains the pattern
-# <pattern_file> - REQUIRED Pattern that will be searched in the given text
+# <database_file> - REQUIRED File which contains the DNA database
+# <query_file> - REQUIRED File that contains queries to be matched with the database
 # <output_file> - OPTIONAL Output file to write the output
 
-# Eg - java Wildcard database.txt query.txt output.txt
+# TEST - java DNA database.txt query.txt output.txt
 ```
 
 ---
 
-## Team
+## Team 
+
+### Number - 16
 
 * U U Kumarasinghe - 17000912
-* M I Lakshan
-* O Lelum
+* M I Lakshan - 17000939
+* O Lelum - 17000955
 
