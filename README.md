@@ -4,7 +4,13 @@
 
 Matches given pattern with multiple single character(```_```) wild cards using naive string matching.
 
-### How to run - **Question 1**
+### Explanation
+
+Naive algorithm is used because of simplicity of the problem. Thus algorithms such as Karp/Rabin algorithm adds unnecessary complexity and needs rehashing for already hashed letters in order to match wildcards.
+
+
+
+### How to run
 
 Move to ```question1``` directory, compile and run Wildcard.java with arguments
 
@@ -25,7 +31,11 @@ java Wildcard <text_file> <pattern_file> <output_file>
 
 Matches given multiple DNA queries with multiple DNA database using Karp/Rabin string matching algorithm.
 
-### How to run - **Question 2**
+## Explanation
+
+DNA sequences can get very long and needs more efficent algorithm than naive bruteforce algorithm. Therefore solution for this question is implemented using Karp/Rabin algorithm(A depreciated naive algorithm function is also implemented alongside to check the correctness of the algorithm). Rolling hash was calculated using the RollingHash class.
+
+### How to run
 
 Move to ```question2``` directory, compile and run Wildcard.java with arguments
 
